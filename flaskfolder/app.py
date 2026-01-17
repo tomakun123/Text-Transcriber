@@ -6,7 +6,6 @@ import subprocess
 # from TextTranscriber.src.main import char_list_from_file
 from flask_cors import CORS
 import shutil
-import time
 
 app = Flask(__name__)
 CORS(app)
@@ -57,17 +56,12 @@ def upload():
         # Save the uploaded file to a specific location
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
         uploaded_file.save(file_path)
-        # model = Model(char_list_from_file(), "infer", must_restore=True, dump=args.dump)
-        # infer(model, args.img_file)
-        # result = main.infer()
-    
-        # run streamline
-        # streamline_path = 'C:/Users/Thomas M/Desktop/AI_Camp/Streamline/main_subprocess.py'
         streamline_path = './streamline_subprocess.py'
         result = subprocess.run(['python', streamline_path], capture_output=True)
         pre_sentence = result.stdout.decode().split('\r\n')
         print("pre_sentence:", pre_sentence)
         sentence = extract_sentence(pre_sentence)
+        print(sentence)
         return jsonify(sentence=sentence)
 
     else:
@@ -81,7 +75,7 @@ def test():
 @app.route('/audio', methods=['GET'])
 def play_audio():
 
-    audio_file = os.path.join('C:/Users/Thomas M/Desktop/AI_Camp/Text-Transcriber/mp3folder', 'T2S.mp3')
+    audio_file = os.path.join('C:/Users/Thomas M/Desktop/AI_Camp/flaskfolder/TextTranscriber/mp3folder', 'T2S.mp3')
     response = send_file(audio_file, mimetype='audio/mpeg')
     response.headers['Cache-Control'] = 'no-cache'
 

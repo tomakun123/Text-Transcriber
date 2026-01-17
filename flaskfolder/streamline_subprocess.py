@@ -9,8 +9,9 @@ print("wordDetectDone1:", wordDetectDone)
 
 # Run main.py in Text-Transcribe
 if wordDetectDone:
-    text_transcriber_dir = "./../Text-Transcriber/src/"
+    text_transcriber_dir = "C:/Users/Thomas M/Desktop/AI_Camp/Text-Transcriber/src"
     text_transcriber_command = ["python", "main.py"]
+    print("DOING TEXTTRANSCRIBER")
     subprocess.run(text_transcriber_command, cwd=text_transcriber_dir)
     transcribeDone = True
     print("transcribeDone1:", transcribeDone)
